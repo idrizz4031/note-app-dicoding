@@ -1,0 +1,445 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: #edf9fc;
+    padding-top: 5rem;
+}
+
+/* header */
+.header {
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #ffeb3b;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgb(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.header h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+/* main */
+.main {
+    flex: 1;
+    padding-bottom: 2em;
+
+    min-height: 100vh;
+}
+
+    /* tombol */
+    .button {
+        display: flex;
+        padding: 16px;
+        top: 100px;
+    }
+
+    .button button {
+        position: relative;
+        display: inline;
+        font-size: 17px;
+        font-family: inherit;
+        text-decoration: none;
+        margin-top: 30px;
+        top: 4rem;
+        right: -1rem;
+        border-radius: 6em;
+        padding: 1em 2.5em;
+        z-index: 5;
+        background-color: #097a01;
+        color: #290202;
+        cursor: pointer;
+        box-shadow: 0 0 5px rgb(0, 0, 0, 0.1);
+        transition: all 0.2 ease-in-out;
+    }
+
+        .add:active {
+            transform: translateY(-px);
+            box-shadow: 0 5px 10 px rgba(0, 0, 0, 0.2);
+        }
+
+        .add:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgb(0, 0, 0, 0.2);
+        }
+
+        .add::after {
+            content: "";
+            position: absolute;
+            display: inline-block;
+            border-radius: 100px;
+            height: 100%;
+            width: 100%;
+            background-color: #097a01;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            transition: all .4s;
+        }
+        
+        .add:hover::after {
+            transform: scaleX(1.4) scaleY(1.6);
+            opacity: 0;
+        }
+
+    /* formulir catatan */
+    .note-page {
+        display: flex;
+        position: fixed;
+        width: 100%;
+        align-items: center;
+        padding-top: 3%;
+        flex-direction: column;
+        justify-content: center; 
+        min-height: 75vh; 
+        padding: 2rem; 
+    }
+
+    .note-form {
+        background-color: white;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 5px 20px 0 rgba(0, 0, 0, 0.19);
+        justify-content: center;
+        padding: 2rem; 
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+    }
+
+    .note-form h1 {
+        text-align: center;
+        margin-bottom: 1em;
+        font-weight: 700;
+        font-size: 24px;
+        width: 100%;
+    }
+
+        .form-class, .form-isi {
+            position: relative;
+        }
+
+        .judul-error {
+            display: none;
+            color: #f80d2d;
+            font-size: 0.75rem;
+            margin-top: 0;
+        }
+
+        .char-count {
+            display: block;
+            text-align: right;
+            font-size: 0.7rem;
+            color: #666;
+            margin-bottom: 1em;
+        }
+
+        #NoteJudul, #NoteIsi {
+            padding-right: 3em;
+        }
+
+    .note-formulir {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 1em;
+        width: 100%;
+    }
+
+        .note-formulir .form-judul {
+            width: 100%;
+            margin-bottom: auto;
+        }
+
+    .note-formulir .form-judul input {
+        border: 0;
+        border-radius: 10px;
+        box-sizing: border-box;
+        outline-offset: 3px;
+        outline: 2px solid #febf00;
+        background-color: #e2d2e2;
+        padding: 10px 1rem;
+        transition: 0.25s;
+        font-size: 1rem;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+        .note-formulir .form-judul input:focus {
+            outline-offset: 5px;
+            background-color: #fff;
+        }
+
+        .note-formulir .form-isi {
+            width: 100%;
+        }
+
+        .form-isi {
+            margin-bottom: 1em;
+        }
+
+    .note-formulir .form-isi textarea {
+        background-color: transparent;
+        width: 100%;
+        font-size: 1rem;
+        padding: 12px 16px;
+        height: 9rem;
+        border: 3px solid #414141;
+        box-sizing: border-box;
+        resize: none;
+    }
+
+        .note-formulir .form-isi textarea:focus {
+            outline: none;
+            border-color: #e81cff;
+        }
+
+    .note-formulir .form-class {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+
+    .note-form .form-class button {
+        display: flex;
+        font-weight: 500;
+        font-size: 1rem;
+        border: 1px solid #414141;
+        color: #000000;
+        line-height: 1.8rem;
+        border-radius: 6px;
+        margin-top: 8px;
+        padding: 0.4rem 2rem;
+        transition: all 0.2 ease-in-out;
+        width: 100%;
+        max-width: 180px;
+        cursor: pointer;
+        justify-content: center;
+    }
+
+        .note-form .form-class button.tombol-submit {
+            background-color: #3466f0;
+            margin-right: 1-rem;
+        }
+
+        .note-form .form-class button.tombol-submit:hover {
+            opacity: 0.8;
+        }
+
+    .note-form .form-class button.tombol-cancel {
+        background-color: #f34646;
+        margin-left: 1-rem;
+    }
+
+        .note-form .form-class button.tombol-cancel:hover {
+            opacity: 0.8;
+        }
+    
+    .berdampingan {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+        
+    /* List catatan */
+        .note-listing {
+            display: block;
+        }
+
+            .note-listing .bahan-ruang {
+                padding-top: 5%;
+                display: grid;
+            }
+
+            .note-listing .bahan-ruang .judul-notes {
+                padding-top: 1em;
+                text-align: center;
+            }
+
+            .note-listing .bahan-ruang hr {
+                width: 90%;
+                border: 1.8px solid #ff7300;
+                margin: 1em auto;
+            }
+
+                .note-listing .bahan-ruang .bahan-isi {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                    align-items: center;
+                    justify-items: center;
+                    gap: 4em;
+                    padding: 2.5em;
+                }
+
+                    .note-listing .bahan-ruang .bahan-isi .content {
+                        background-color: white;
+                        opacity: 0.8;
+                        border: none;
+                        border-radius: 10px;
+                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                        width: 100%;
+                        max-width: 300px;
+                        height: 100%;
+                        padding: 1em;
+                        text-align: left;
+                    }
+                
+                    .note-listing .bahan-ruang .bahan-isi .content p {
+                        padding-top: 1em;
+                        font-size: 1.1em;
+                        line-height: 1.4em;
+                        color: #333;
+                        display: -webkit-box;
+                         -webkit-box-orient: vertical;
+                         -webkit-line-clamp: 2;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+
+                    .note-listing .bahan-ruang .bahan-isi .content h2 {
+                        margin-bottom: 0.5em;
+                        font-size: 1.2em;
+                    }
+
+                    .note-listing .bahan-ruang .bahan-isi .content small {
+                        font-size: 0.9;
+                        margin-top: 1px;
+                        color: #666;
+                    }
+    /* Tombol delete & edit */
+    .action-tombol {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1em;
+    }
+
+    .action-tombol button {
+        margin-top: 1em;
+        border: none;
+        padding: 0.7em 3em;
+        border-radius: 5px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .action-tombol .edit-note {
+        background-color: #0a0eec;
+        color: #edf9fc;
+    }
+
+    .action-tombol .delete-note {
+        background-color: #f34646;
+        color: white;
+    }
+
+    .action-tombol button:hover {
+        opacity: 0.8;
+    }
+
+    /* tombol perbarui dan tombol delete */
+    .tombol-submit, .tombol-cancel {
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3 ease, color 0.3 ease;
+        margin-right: 10px;
+        font-weight: bold;
+    }
+
+    .tombol-submit {
+        background-color: #4caf50;
+        color: white;
+    }
+
+        .tombol-submit:hover {
+            background-color: #45a049;
+        }
+    
+    .tombol-cancel {
+        background-color: #f44336;
+        color: white;
+    }
+        .tombol-cancel:hover {
+            background-color: #e53935;
+        }
+
+/* footer */
+footer {
+    display: flex;
+    position: relative;
+    height: 60px;
+    width: 100%;
+    bottom: 0;
+    margin-top: auto;
+    padding: 15px;
+    align-items: center;
+    font-size: 12px;
+    justify-content: center;
+    background-color: #5c78f5;
+}
+
+footer p {
+    font-size: 1rem;
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+    .note-form {
+        padding: 1.5rem;
+        max-width: 350px;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .button button {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+
+    .berdampingan {
+        flex-direction: column;
+    }
+
+    .tombol-submit,
+    .tombol-cancel {
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .note-form {
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    header h1 {
+        font-size: 1.2rem;
+    }
+
+    .button button {
+        font-size: 0.8rem;
+        padding: 8px 16px;
+    }
+
+    .note-formulir input,
+    .note-formulir textarea {
+        padding: 0.6rem;
+    }
+}
