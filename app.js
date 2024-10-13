@@ -85,6 +85,7 @@ function addNote(event) {
     };
 
     notesData.push(newCatatan);
+    tombol.style.display = "block";
     renderNotes();
 }
 
@@ -234,43 +235,19 @@ function edit(noteId) {
         
     }
 }
-
 function renderNotes() {
-   catatan.innerHTML = '';
-   const ruang = document.createElement('div');
-   ruang.className = 'note-listing'; 
-
-   ruang.innerHTML = `
-    <div class="bahan-ruang"> 
-        <h1 class="judul-notes">Catatan Kegiatan yang Harus Dikerjakan</h1>
-        <hr>
-        <div class="bahan-isi"></div>
-    </div>
-   `;
-
-    const bahanIsi = ruang.querySelector('.bahan-isi');
-    notesData.forEach(note => {
-        const noteItem = document.createElement('div');
-        noteItem.className = 'content';
-
-        noteItem.innerHTML = `
-            <h2>${note.title}</h2>
-            <p>${note.body}</p>
-            <small>Dibuat pada: ${new Date(note.createdAt).toLocaleDateString()}</small>
-            <div class="action-tombol">
-                <button class="edit-note" data-id="${note.id}">Edit</button>
-                <button class="delete-note" data-id="${note.id}">Hapus</button>
-            </div>
-        `;
-        bahanIsi.appendChild(noteItem);
-
-        const deletebtn = noteItem.querySelector('.delete-note');
-        deletebtn.addEventListener('click', () => hapus(note.id));
-
-        const editbtn = noteItem.querySelector('.edit-note');
-        editbtn.addEventListener('click', () => edit(note.id));
+    const noteListElement = document.createElement('note-list');
+    noteListElement.addEventListener('edit-note', (event) => {
+        const noteId = event.detail.noteId;
+        edit(noteId);
     });
-    catatan.appendChild(ruang);
+    noteListElement.addEventListener('delete-note', (event) => {
+        const noteId = event.detail.noteId;
+        hapus(noteId);
+    });
+    
+    catatan.innerHTML = ''; 
+    catatan.appendChild(noteListElement);  
 }
 
 tombol.addEventListener("click", showNoteform);
