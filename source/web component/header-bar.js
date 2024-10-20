@@ -1,26 +1,42 @@
 class HeaderBar extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open'});
-    }
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+  }
 
-    connectedCallback() {
-        this.render();
-    }
+  connectedCallback() {
+    this.render();
+  }
 
-    render() {
-        const link = document.createElement('link');
-        link.setAttribute('rel', 'stylesheet');
-        link.setAttribute('href', 'style/style.css');
+  render() {
+    const style = document.createElement("style");
+    style.textContent = `
+            .header {
+                display: flex;
+                position: fixed;
+                top: 0;
+                width: 100%;
+                text-align: center;
+                padding: 1.5rem;
+                background-color: #ffeb3b;
+                justify-content: center;
+                box-shadow: 0 2px 5px rgb(0, 0, 0, 0.1);
+                z-index: 10;
+            }
 
-        this.shadowRoot.appendChild(link);
-
-        this.shadowRoot.innerHTML += `
-            <div class="header">
-                <h1>Notes App</h1>
-            </div>
+            .header h1 {
+                font-size: 2rem;
+                color: #333;
+            }
         `;
-    }
+
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("header");
+    wrapper.innerHTML = `<h1>Notes App</h1>`;
+
+    this.shadowRoot.appendChild(style);
+    this.shadowRoot.appendChild(wrapper);
+  }
 }
 
-customElements.define('header-bar', HeaderBar);
+customElements.define("header-bar", HeaderBar);

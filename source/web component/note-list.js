@@ -1,10 +1,14 @@
-import notesData from "../data/notes.js";
-
 class NoteList extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' }); 
-    this.notes = notesData;
+    this.attachShadow({ mode: "open" });
+    this.notes = []; // Inisialisasi notes sebagai array kosong
+  }
+
+  // Setter untuk menerima data dari luar
+  set note(notes) {
+    this.notes = notes;
+    this.render(); // Render ulang ketika menerima data baru
   }
 
   connectedCallback() {
@@ -12,10 +16,10 @@ class NoteList extends HTMLElement {
   }
 
   render() {
-    this.shadowRoot.innerHTML = '';
+    this.shadowRoot.innerHTML = "";
 
     // Menambahkan link ke file CSS
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.textContent = `
     .note-list {
         display: block;
@@ -66,7 +70,7 @@ class NoteList extends HTMLElement {
         color: #333;
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 3;
         overflow: hidden;
         text-overflow: ellipsis;
       }
@@ -74,6 +78,12 @@ class NoteList extends HTMLElement {
       .note-listing .bahan-ruang .bahan-isi .content h2 {
         margin-bottom: 0.5em;
         font-size: 1.2em;
+        display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .note-listing .bahan-ruang .bahan-isi .content small {
@@ -115,44 +125,40 @@ class NoteList extends HTMLElement {
     this.shadowRoot.appendChild(style);
 
     // Bungkus konten dalam div dengan class 'note-listing'
-    const wrapper = document.createElement('div');
-    wrapper.className = 'note-listing';
+    const wrapper = document.createElement("div");
+    wrapper.className = "note-listing";
     wrapper.innerHTML = `
       <div class="bahan-ruang">
         <h1 class="judul-notes">Catatan Kegiatan yang Harus Dikerjakan</h1>
         <hr>
         <div class="bahan-isi">
-          ${this.notes.map(note => `
+          ${this.notes
+            .map(
+              (note) => `
             <div class="content">
               <h2>${note.title}</h2>
               <p>${note.body}</p>
-              <small>Dibuat pada: ${new Date(note.createdAt).toLocaleDateString('id-ID')}</small>
+              <small>Dibuat pada: ${new Date(note.createdAt).toLocaleDateString("id-ID")}</small>
               <div class="action-tombol">
-                <button class="edit-note" data-id="${note.id}">Edit</button>
                 <button class="delete-note" data-id="${note.id}">Hapus</button>
               </div>
-            </div>`).join('')}
+            </div>`,
+            )
+            .join("")}
         </div>
       </div>
     `;
 
     this.shadowRoot.appendChild(wrapper);
 
-    // Tambahkan event listener untuk edit dan delete
-    const editButtons = this.shadowRoot.querySelectorAll('.edit-note');
-    const deleteButtons = this.shadowRoot.querySelectorAll('.delete-note');
+    const deleteButtons = this.shadowRoot.querySelectorAll(".delete-note");
 
-    editButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const noteId = button.getAttribute('data-id');
-        this.dispatchEvent(new CustomEvent('edit-note', { detail: { noteId } }));
-      });
-    });
-
-    deleteButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const noteId = button.getAttribute('data-id');
-        this.dispatchEvent(new CustomEvent('delete-note', { detail: { noteId } }));
+    deleteButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const noteId = button.getAttribute("data-id");
+        this.dispatchEvent(
+          new CustomEvent("delete-note", { detail: { noteId } }),
+        );
       });
     });
   }
